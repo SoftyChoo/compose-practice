@@ -102,4 +102,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     // Optional - Integration with RxJava
     implementation("androidx.compose.runtime:runtime-rxjava2")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.6.0-alpha06")
 }
