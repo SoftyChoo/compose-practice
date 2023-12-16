@@ -1,32 +1,19 @@
 package com.example.compose_practice
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -34,23 +21,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val viewModel: MainViewModel = viewModel()
+            HomeScreen(this)
+        }
+    }
+}
 
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = viewModel.data.value,
-                    fontSize = 30.sp,
-                )
-                Button(onClick = {
-                    viewModel.updateValue("World")
-                }) {
-                    Text(text = "변경")
-                }
-            }
+@Composable
+fun HomeScreen(lifecycleOwner: MainActivity, viewModel: MainViewModel = viewModel()) {
+
+    val (text, setText) = remember {
+        mutableStateOf("Hello world")
+    }
+
+    val (uiText, setUiText) = remember {
+        mutableStateOf("")
+    }
+
+    viewModel.value.observe(lifecycleOwner, Observer {
+        setUiText(it)
+    })
+
+    Column {
+        Text(text = uiText)
+        TextField(value = text, onValueChange = setText )
+        Button(onClick = {
+            viewModel.updateValue(text)
+        }) {
+            Text(text = "클릭")
         }
     }
 }
