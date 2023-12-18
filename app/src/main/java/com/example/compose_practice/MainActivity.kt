@@ -10,13 +10,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,16 +33,15 @@ fun HomeScreen(lifecycleOwner: MainActivity, viewModel: MainViewModel = viewMode
         mutableStateOf("Hello world")
     }
 
-    val (uiText, setUiText) = remember {
-        mutableStateOf("")
-    }
+//    viewModel.value.observe(lifecycleOwner, Observer {
+//        setUiText(it)
+//    })
 
-    viewModel.value.observe(lifecycleOwner, Observer {
-        setUiText(it)
-    })
+    val uiText = viewModel.value.observeAsState("")
+
 
     Column {
-        Text(text = uiText)
+        Text(text = uiText.value)
         TextField(value = text, onValueChange = setText )
         Button(onClick = {
             viewModel.updateValue(text)
