@@ -40,10 +40,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(names : List<String> = listOf("World","Compose")) {
+fun MyApp(names: List<String> = listOf("World", "Compose")) {
     Surface(color = MaterialTheme.colors.background) {
-        Column {
-            for (name in names){
+        Column(modifier = Modifier.padding(vertical = 4.dp)) {
+            for (name in names) {
                 Greeting(name = name)
             }
         }
@@ -52,8 +52,13 @@ fun MyApp(names : List<String> = listOf("World","Compose")) {
 
 @Composable
 fun Greeting(name: String) {
-    Surface(color = MaterialTheme.colors.primary) {
-        Column(modifier = Modifier.padding(24.dp).fillMaxWidth(1f)) {
+    Surface(
+        color = MaterialTheme.colors.primary,
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        Column(modifier = Modifier
+            .padding(24.dp)
+            .fillMaxWidth(1f)) {
             Text(text = "Hello")
             Text(text = name)
         }
