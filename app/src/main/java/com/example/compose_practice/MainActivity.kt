@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ButtonColors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose_practice.ui.theme.ComposepracticeTheme
+import com.example.compose_practice.ui.theme.Purple40
+import com.example.compose_practice.ui.theme.Purple80
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,16 +62,16 @@ fun Greeting(name: String) {
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
-        Row(modifier = Modifier.padding(24.dp)){
+        Row(modifier = Modifier.padding(24.dp)) {
             Column(
                 modifier = Modifier
                     .weight(1f) // 겹치지 않게 Weight로 설정
             ) {
-                Text(text = "Hello")
-                Text(text = name)
+                Text(text = "Hello", color = Color.White)
+                Text(text = name, color = Color.White)
             }
-            OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = "Show more")
+            OutlinedButton(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color.White)) {
+                Text(text = "Show more",color = Purple40 )
             }
         }
 
