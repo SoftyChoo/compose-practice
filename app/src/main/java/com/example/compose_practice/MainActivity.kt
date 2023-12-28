@@ -60,9 +60,9 @@ fun MyApp(names: List<String> = listOf("World", "Compose")) {
 
 @Composable
 fun Greeting(name: String) {
-    val expanded by rememberSaveable() {
-        mutableStateOf(false)
-    }
+    val expanded = rememberSaveable { mutableStateOf(false) }
+    val extraPadding = if(expanded.value) 64.dp else 0.dp
+
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -70,16 +70,17 @@ fun Greeting(name: String) {
         Row(modifier = Modifier.padding(24.dp)) {
             Column(
                 modifier = Modifier
+                    .padding(bottom = extraPadding)
                     .weight(1f) // 겹치지 않게 Weight로 설정
             ) {
                 Text(text = "Hello", color = Color.White)
                 Text(text = name, color = Color.White)
             }
             OutlinedButton(onClick = {
-                expanded != expanded
+                expanded.value = !expanded.value
             }, colors = ButtonDefaults.buttonColors(Color.White)) {
                 Text(
-                    if (expanded) "Show less" else "Show more",
+                    if (expanded.value) "Show less" else "Show more",
                     color = Purple40
                 )
             }
