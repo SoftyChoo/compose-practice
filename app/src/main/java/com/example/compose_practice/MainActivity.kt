@@ -18,9 +18,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,6 +60,9 @@ fun MyApp(names: List<String> = listOf("World", "Compose")) {
 
 @Composable
 fun Greeting(name: String) {
+    val expanded by rememberSaveable() {
+        mutableStateOf(false)
+    }
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -70,8 +75,13 @@ fun Greeting(name: String) {
                 Text(text = "Hello", color = Color.White)
                 Text(text = name, color = Color.White)
             }
-            OutlinedButton(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color.White)) {
-                Text(text = "Show more",color = Purple40 )
+            OutlinedButton(onClick = {
+                expanded != expanded
+            }, colors = ButtonDefaults.buttonColors(Color.White)) {
+                Text(
+                    if (expanded) "Show less" else "Show more",
+                    color = Purple40
+                )
             }
         }
 
