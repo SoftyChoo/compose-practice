@@ -6,10 +6,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -56,12 +58,19 @@ fun Greeting(name: String) {
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
-        Column(modifier = Modifier
-            .padding(24.dp)
-            .fillMaxWidth(1f)) {
-            Text(text = "Hello")
-            Text(text = name)
+        Row(modifier = Modifier.padding(24.dp)){
+            Column(
+                modifier = Modifier
+                    .weight(1f) // 겹치지 않게 Weight로 설정
+            ) {
+                Text(text = "Hello")
+                Text(text = name)
+            }
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text(text = "Show more")
+            }
         }
+
     }
 }
 
